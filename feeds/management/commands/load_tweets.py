@@ -21,4 +21,5 @@ class Command(BaseCommand):
             log.success = False
             log.info = {'exception': str(e)}
 
-        self.stdout.write('Tweets loaded successfully')
+        log.save()
+        self.stdout.write('task completed!')
