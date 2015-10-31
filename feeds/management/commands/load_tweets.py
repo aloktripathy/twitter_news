@@ -1,5 +1,7 @@
 __author__ = 'Alok'
 
+from time import time
+
 from django.core.management.base import BaseCommand, CommandError
 from feeds.models import Category, Log, Tweet
 
@@ -13,10 +15,12 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         log = Log(task='load_tweets')
         try:
+            t = -time()
             count = Category.refresh_all(50)
+            t += time()
             log.success = True
             tweet_count = Tweet.objects.count()
-            log.info = {'docs_updated': count, 'all': tweet_count}
+            log.info = {'docs_updated': count, 'all': tweet_count, 'task_duration': int(t)}
         except Exception as e:
             log.success = False
             log.info = {'exception': str(e)}
