@@ -105,7 +105,7 @@ class Category(Document):
     Represents a news feed category
     """
     text = StringField(unique=True)
-    channels = EmbeddedDocumentListField(Channel)
+    channels = ListField(EmbeddedDocumentField(Channel))
     last_refreshed = DateTimeField(default=timezone.now())
 
     def refresh(self, feed_count_per_channel=50):
