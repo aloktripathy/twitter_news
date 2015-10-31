@@ -111,10 +111,14 @@ class Category(Document):
     def refresh(self, feed_count_per_channel=50):
         """
         refresh all the channels under this category
+        Return: Number of new/updated tweets
         """
+        counter = 0
         for channel in self.channels:
             # fetch tweets under channel using API
             raw_tweets = TwitterApi.tweets_by_channel(channel.screen_name, feed_count_per_channel)
+            counter += len(raw_tweets)
+
             for raw_tweet in raw_tweets:
                 # upsert instead of inserting
                 # Tweet.from_api(raw_tweet, self.text).save()
@@ -130,15 +134,32 @@ class Category(Document):
             self.last_refreshed = timezone.now()
             self.save()
 
+        return counter
+
     @staticmethod
     def refresh_all(feed_count_per_channel=50):
         """
         refreshes all the categories and the channels under them
+        Returns: Number of new/updated tweets
         """
         categories = Category.objects.all()
+        counter = 0
 
         for category in categories:
-            category.refresh(feed_count_per_channel)
+            count = category.refresh(feed_count_per_channel)
+            counter += count
+
+        return counter
+
+
+class Log(Document):
+    """
+    logging for automated scheduled tasks like load_tweets
+    """
+    task = StringField()
+    success = BooleanField()
+    info = DynamicDocument()
+    created = DateTimeField(default=timezone.now())
 
 
 class TwitterApiError(Exception):
