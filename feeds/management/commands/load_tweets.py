@@ -26,4 +26,4 @@ class Command(BaseCommand):
             log.info = {'exception': str(e)}
 
         log.save()
-        self.stdout.write('task completed!')
+        # self.stdout.write('task completed!')
