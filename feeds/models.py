@@ -23,7 +23,8 @@ class Tweet(Document):
     media = URLField(null=True)
     text = StringField()
 
-    favo
+    favorites = IntField()
+    retweets = IntField()
     score = IntField()
     created = DateTimeField()
 
@@ -61,8 +62,6 @@ class Tweet(Document):
 
         t['favorites'], t['retweets'], time_str = data["retweet_count"], data["favorite_count"], data["created_at"]
         timestamp = timezone.datetime.strptime(time_str, "%a %b %d %H:%M:%S %z %Y")
-
-
 
         # tweet.score = Tweet._compute_score(t['favorites'], t['retweets'], timestamp.timestamp())
         t['score'] = Tweet._compute_score(t['favorites'], t['retweets'], timestamp.timestamp())
