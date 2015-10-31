@@ -158,7 +158,7 @@ class Log(Document):
     """
     task = StringField()
     success = BooleanField()
-    info = DynamicDocument()
+    info = DictField()
     created = DateTimeField(default=timezone.now())
 
 
