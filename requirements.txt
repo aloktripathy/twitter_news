@@ -7,4 +7,3 @@ djangorestframework == 3.3.0
 django-rest-framework-mongoengine
 requests
 markdown
-kronos                                  # scheduling tasks
