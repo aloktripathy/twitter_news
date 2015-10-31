@@ -49,9 +49,6 @@ def tweet_list(request):
     sort_by = request.REQUEST.get('sort_by', 'score')
     tweets = tweets.order_by('-score')
 
-
-
-
     serializer = TweetSerializer(tweets, many=True)
     return JSONResponse(serializer.data)
 
