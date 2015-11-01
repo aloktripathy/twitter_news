@@ -30,8 +30,11 @@ class Tweet(Document):
 
     meta = {
         'indexes': [
-            {'fields': ['created'], 'expireAfterSeconds': 3600 * 24}
+            {'fields': ['created'], 'expireAfterSeconds': 3600 * 24},
+            ('category', '-created'),
+            'score',
         ]
+
     }
 
     @staticmethod
