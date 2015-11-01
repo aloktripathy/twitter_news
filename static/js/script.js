@@ -60,7 +60,7 @@ app.controller("mainCtrl", ["$scope", "$http", "globals", function($scope, $http
         }
         // order_by=score&category=Business&start_from=1446287446&until=1446299777
         var params = {order_by: $scope.order_tweets_by, start_from: parseInt($scope.timeline.start_from / 1000),
-                     until: parseInt($scope.timeline.until), page: $scope.current_page};
+                     until: parseInt($scope.timeline.until) / 1000, page: $scope.current_page};
         if($scope.currentCategoryIndex !== 0)
             params.category = $scope.categories[$scope.currentCategoryIndex].text;
         
