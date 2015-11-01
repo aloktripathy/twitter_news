@@ -8,8 +8,8 @@ var app = angular.module('twitterNews', ['ngRoute']);
 
 // SERVICE
 app.service('globals', function(){
-    this.category_url = 'data/categories.json'; //'http://news.aloktripathy.com/api/categories';
-    this.tweets_url = 'data/tweets.json'; //'http://news.aloktripathy.com/api/tweets';
+    this.category_url = 'http://news.aloktripathy.com/api/categories';
+    this.tweets_url = 'http://news.aloktripathy.com/api/tweets';
     this.shuffle = function(o){
         for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
         return o;
