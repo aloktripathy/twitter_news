@@ -46,12 +46,13 @@ app.controller("mainCtrl", ["$scope", "$http", "globals", function($scope, $http
     $scope.loading = false;
     
     $scope.loadCategory = function(index){
-        $scope.currentCategoryIndex = index;  
+        $scope.currentCategoryIndex = index;
+        $scope.fetchTweets(true);
     };
     
     // fetch tweets
     $scope.fetchTweets = function(reset_pagination){
-        if($scope.loading)
+        if($scope.loading && !reset_pagination)
             return false;
         var container_element = $('.stream .inner');
         if(reset_pagination){
