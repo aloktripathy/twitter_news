@@ -92,7 +92,7 @@ app.controller("mainCtrl", ["$scope", "$http", "globals", function($scope, $http
     // lazyload
     $(window).scroll(function(e){
         var gap = Math.abs($('.stream').height() - window.scrollY);
-        if(gap < 500){
+        if(gap < 1000){
             $scope.fetchTweets();
         }
     });
