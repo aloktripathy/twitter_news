@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Twitter News</title>
+    <!--<link href="img/logo64x64.png" type="image/x-icon" rel="icon">-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- WE ARE USING MATERIAL THEME SO BOOTSTRAP THEME IS REDUNDANT HERE
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+    -->
+
+    <!-- MATERIAL STYLESHEETS -->
+    <link rel="stylesheet" href="css/ripples.css" type="text/css"/>
+    <link rel="stylesheet" href="css/material.css" type="text/css"/>
+    <link rel="stylesheet" href="css/roboto.css" type="text/css"/>
+
+    <!-- OUR OWN STYLESHEET -->
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <!-- SCRIPTS -->
+    <script src="js/jquery.js" type="application/javascript"></script>
+    <script src="js/angular.js" type="text/javascript"></script>
+    <script src="js/angular-route.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="js/nouislider.min.js" type="application/javascript"></script>
+    <script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    <!-- MATERIAL SCRIPTS -->
+    <script src="js/ripple.js" type="application/javascript"></script>
+    <script src="js/material.js" type="application/javascript"></script>
+
+    <!-- OUR OWN STYLESHEET -->
+    <script src="js/script.js" type="application/javascript"></script>
+</head>
+<body ng-app="twitterNews">
+    <div class="container" ng-controller="mainCtrl">
+        <header class="header">
+            <div class="col-md-3 logo">
+                <h1>TWITTER NEWS</h1>
+            </div>
+            <div class="col-md-8 categories">
+                <a class="btn btn-flat btn-info" 
+                ng-repeat="category in (categories | ngRepeatFinish)" 
+                ng-class="{pressed: $index == currentCategoryIndex}"
+                ng-click="loadCategory($index)">
+                {{category.text}}</a>
+            </div>
+        </header>
+        <nav class="left-nav col-md-3">
+            <div class="inner well">
+                <div class="channels pull-left">
+                    <a ng-repeat="channel in categories[currentCategoryIndex].channels"
+                       href="https://www.twitter.com/{{channel.screen_name}}"
+                       class="channel"
+                       target="_blank">
+                        <img src="{{channel.profile_pic}}">
+                        <span class="name">{{channel.name}}</span>
+                        <div class="checkbox radio-primary">
+                            <label>
+                                <input type="checkbox" checked>
+                            </label>
+                        </div>
+                    </a>
+                </div>
+                <div class="timeline pull-left">
+                    <span class="end-time time" title="Show news posted before {{pretty_date(timeline.until)}}">{{pretty_date(timeline.until)}}</span>
+                    <div id="time-slider" class="slider svert slider-success noUi-target noUi-ltr noUi-vertical noUi-connect"></div>
+                    <span class="start-time time" title="Show news posted after {{pretty_date(timeline.start_from)}}">{{pretty_date(timeline.start_from)}}</span>
+                </div>
+            </div>
+        </nav>
+        <div class="col-md-6 stream">
+            <div class="inner">
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
